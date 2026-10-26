@@ -316,4 +316,12 @@ def create_fit_card(outfit: str, new_item: dict) -> str:
     if not response.strip():
         return f"Couldn't write a fit card for {title} right now — try again in a moment."
 
+    # 4. The model likes to rephrase "$24" as "twenty-four bucks", or get it
+    #    wrong. The listing's price is the fact, so check for it exactly:
+    #    retry once, then state it ourselves.
+    if price_text.startswith("$") and price_text not in response:
+        retry = generate(prompt, system=system)
+        if price_text in retry:
+            return retry.strip()
+        return f"{response.strip()} ({price_text} on {platform}.)"
     return response.strip()
