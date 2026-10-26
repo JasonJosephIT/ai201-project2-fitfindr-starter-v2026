@@ -1,17 +1,18 @@
 ---
-status: active
+status: done
 progress: All Unit 3 and Unit 4 README sections written; criteria 1–5 MET after the price fix
 next_date:
 updated: 2026-10-26
 ---
 
 ## Now
-- README complete for Units 3 and 4. Final read-through before submission.
+- Pushed to github.com/JasonJosephIT/ai201-project2-fitfindr-starter-v2026 (main). Submit that URL for units 3 and 4.
 
 ## Next
 - Optional: swap the two empty criterion 5 queries, weight title/category matches in search (both listed under What's Still Broken).
 
 ## Decisions
+- 2026-10-26: Submit both units from the existing course fork, not a new repo (Unit 4 rules forbid recreating). Work committed as six commits in the order it happened, today's dates, criteria before results.
 - 2026-10-26: M5 fix: `create_fit_card` checks the caption for the exact price ("$24"); retries once, then appends "($24 on depop.)". Criterion 4 revision dropped; criterion stays as originally written. Before-run: criterion 4 MISSED 3/5 (two cards said "twenty-four bucks").
 - 2026-10-26: Expanded `_STOPWORDS` in `tools.py` (grammar words, request filler like "looking"/"something", leftover price/size words like "under"/"size"). Done after the before-eval, so the baseline used the old 8-word list; all eval queries return the same listings either way.
 - 2026-10-26: Criterion 5 needs 5 different queries, so a scenario's `query` may be a list; try N uses entry N (`run_eval.py::query_for`). Saves running each phrasing 5 times.
