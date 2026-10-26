@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" data-lavish-annotate="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitFindr — README write-up</title>
+<style>
+  :root { --bg:#faf9f6; --card:#fff; --ink:#1f2328; --muted:#646b73; --line:#e3e0d8;
+          --done:#1f7a4d; --draft:#9a6700; --you:#b42318; --accent:#3b5bdb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#16181b; --card:#1f2226; --ink:#e6e6e6; --muted:#9aa0a6; --line:#33373c;
+            --done:#4cc38a; --draft:#e3b341; --you:#ff7b72; --accent:#8da2fb; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 system-ui, sans-serif; }
+  main { max-width:920px; margin:0 auto; padding:28px 20px 80px; }
+  h1 { font-size:24px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  table.status { width:100%; border-collapse:collapse; margin:0 0 28px; background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table.status th, table.status td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); font-size:14px; }
+  table.status a { color:var(--accent); text-decoration:none; }
+  .pill { display:inline-block; font-size:12px; font-weight:600; padding:1px 8px; border-radius:99px; border:1px solid currentColor; white-space:nowrap; }
+  .done { color:var(--done); } .draft { color:var(--draft); } .you { color:var(--you); } .wait { color:var(--muted); }
+  section { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:0 0 18px; }
+  section h2 { font-size:18px; margin:0 0 4px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .ask { color:var(--muted); font-size:13.5px; margin:0 0 12px; }
+  label.f { display:block; font-weight:600; font-size:13.5px; margin:12px 0 4px; }
+  textarea { width:100%; font:13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color:var(--ink);
+             background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:10px; resize:vertical; }
+  textarea.prose { font-family:system-ui, sans-serif; font-size:14.5px; }
+  textarea:focus { outline:2px solid var(--accent); outline-offset:1px; }
+  .note { font-size:13px; color:var(--muted); border-left:3px solid var(--draft); padding:4px 10px; margin:10px 0 0; }
+  .bar { position:sticky; bottom:0; background:var(--bg); border-top:1px solid var(--line); padding:12px 20px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  button { font:600 14px system-ui, sans-serif; padding:8px 16px; border-radius:6px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--accent); }
+  [role=status] { font-size:13px; color:var(--muted); }
+  .divider { margin:30px 0 14px; font-weight:700; color:var(--muted); letter-spacing:.06em; font-size:12px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+<main>
+<h1>FitFindr — README write-up</h1>
+<p class="sub">Every write-up section in <code>README.md</code>. Edit the drafts and fill the red ones, then press <b>Send to README</b> at the bottom. I'll copy the text in word for word.</p>
+
+<table class="status">
+  <tr><th>Section</th><th>Unit</th><th>State</th></tr>
+  <tr><td><a href="#what">What This Does</a></td><td>3</td><td><span class="pill draft">draft — check</span></td></tr>
+  <tr><td>Tool Inventory</td><td>3</td><td><span class="pill done">done</span></td></tr>
+  <tr><td><a href="#loop">Planning Loop</a> (2 missing lines)</td><td>3</td><td><span class="pill draft">draft — check</span></td></tr>
+  <tr><td><a href="#sample">Sample Run</a> (full query)</td><td>3</td><td><span class="pill draft">draft — real output</span></td></tr>
+  <tr><td><a href="#ai">How I Used AI</a></td><td>3</td><td><span class="pill you">you write this</span></td></tr>
+  <tr><td><a href="#trace">Loop Trace</a> + MCP note</td><td>4</td><td><span class="pill draft">draft — real output</span></td></tr>
+  <tr><td>Run Log — Before, Verdicts and Diagnoses</td><td>4</td><td><span class="pill wait">eval running now</span></td></tr>
+  <tr><td>The Improvement, Run Log — After, What's Still Broken</td><td>4</td><td><span class="pill wait">after the eval</span></td></tr>
+</table>
+
+<form id="writeup" onsubmit="event.preventDefault(); send();">
+
+<div class="divider">Unit 3 — the build</div>
+
+<section id="what" data-lavish-question="What This Does">
+  <h2>What This Does <span class="pill draft">draft</span></h2>
+  <p class="ask">README asks: three or four sentences — what a user asks for, and what they get back.</p>
+  <textarea class="prose" name="What This Does" rows="5">FitFindr is a thrift-shopping helper. You type what you're looking for in plain words, like "vintage graphic tee under $30, size M", and it searches 40 secondhand listings from Depop, Poshmark and thredUp, keeping only items in your size and under your price. It picks the best match and suggests one or two outfits built from clothes already in your wardrobe. Then it writes a short, social-post-style caption (a "fit card") for the find. If nothing matches, it stops and tells you what to change: broader words, a different size or a higher price.</textarea>
+</section>
+
+<section id="loop" data-lavish-question="Planning Loop">
+  <h2>Planning Loop — the two empty lines <span class="pill draft">draft</span></h2>
+  <p class="ask">The branch rule and "Where it lives" are already filled in. These two are still empty.</p>
+  <label class="f" for="parse">How the query is parsed</label>
+  <textarea class="prose" id="parse" name="How the query is parsed" rows="5">Regex, in `agent.py::parse_query`. One pattern pulls a price ceiling out of "under $30", "$30", "max $30", "below $30" or "up to $30"; another pulls a size from "size M", "size US 9", "size W30" or a trailing ", M". Whatever is left becomes the search description. I chose regex over a model call because it's free, gives the same answer every time (criterion 3 depends on that), and when it's wrong I can read why in the pattern. The cost: phrasing it has never seen, like "nothing over thirty dollars", parses to no price at all, and the ceiling is silently ignored.</textarea>
+  <label class="f" for="session">What moves through the session</label>
+  <textarea class="prose" id="session" name="What moves through the session" rows="6">In order: `query` (what the user typed) → `parsed` (description, size, max_price from parse_query) → `search_results` (everything search_listings returned) → `selected_item` (search_results[0], the one listing every later tool gets) → `outfit_suggestion` (what suggest_outfit returned) → `fit_card` (what create_fit_card returned). `wardrobe` is put in at the start and only read. `error` stays None unless the run stops early: on an empty search it holds the "what to change" message, and if the model can't be reached it says so and keeps the search results.</textarea>
+</section>
+
+<section id="sample" data-lavish-question="Sample Run">
+  <h2>Sample Run — one full query <span class="pill draft">real output</span></h2>
+  <p class="ask">Captured from <code>python app.py ask 'vintage graphic tee under $30'</code> today. The three per-tool tests are already in the README.</p>
+  <textarea name="Sample Run — full query" rows="14">$ python app.py ask 'vintage graphic tee under $30'
+
+  Found:    Y2K Baby Tee — Butterfly Print — $18.0 on depop
+
+  Outfit:   Outfit 1: Lean into the Y2K aesthetic by pairing the baby tee with the baggy straight-leg jeans, dark wash. Cinch the waist with the brown leather belt, and finish the look with the chunky white sneakers and the black crossbody bag.
+
+Outfit 2: Balance the fitted, cropped tee with the wide-leg khaki trousers. Layer the vintage black denim jacket on top and lace up the black combat boots to add a little edge to the pastel butterfly print.
+
+  Fit card: Found this sweet little butterfly tee on depop for just 18 bucks and I'm obsessed. I've been styling it with baggy dark denim and chunky sneakers for the ultimate early 2000s mallrat energy. But it also looks so good toughened up with wide-leg khakis and combat boots.</textarea>
+  <p class="note">Worth noticing: this card says "18 bucks", not "$18". Criterion 4 string-matches the price, so this exact card would fail it. The eval will show how often that happens.</p>
+</section>
+
+<section id="ai" data-lavish-question="How I Used AI">
+  <h2>How I Used AI <span class="pill you">you write this</span></h2>
+  <p class="ask">Two specific moments: what you asked, what came back, what you changed. Only you know these. The README's bar: "I gave Claude my search_listings spec. It returned None on no match instead of an empty list, so I changed it."</p>
+  <label class="f">Moment 1 — what I asked for</label>
+  <textarea class="prose" name="Moment 1 — asked" rows="2" placeholder="e.g. I gave Claude my suggest_outfit spec and asked it to write the function…"></textarea>
+  <label class="f">Moment 1 — what came back</label>
+  <textarea class="prose" name="Moment 1 — came back" rows="2"></textarea>
+  <label class="f">Moment 1 — what I changed</label>
+  <textarea class="prose" name="Moment 1 — changed" rows="2"></textarea>
+  <label class="f">Moment 2 — what I asked for</label>
+  <textarea class="prose" name="Moment 2 — asked" rows="2"></textarea>
+  <label class="f">Moment 2 — what came back</label>
+  <textarea class="prose" name="Moment 2 — came back" rows="2"></textarea>
+  <label class="f">Moment 2 — what I changed</label>
+  <textarea class="prose" name="Moment 2 — changed" rows="2"></textarea>
+  <p class="note">Candidates from the code itself, if they match what really happened: the regex parser in <code>agent.py</code> (why regex, not a model), the <code>brand</code>-is-often-None handling in <code>tools.py</code>, or the size matcher that stops "S" matching "US 9".</p>
+</section>
+
+<div class="divider">Unit 4 — the test</div>
+
+<section id="trace" data-lavish-question="Loop Trace">
+  <h2>Loop Trace <span class="pill draft">real output</span></h2>
+  <p class="ask">Happy path and empty search. The empty one stops at step 3: the branch works.</p>
+  <label class="f">Happy path</label>
+  <textarea name="Loop Trace — happy path" rows="16">$ python app.py ask 'vintage graphic tee under $30' --trace
+[1] parse_query
+      in:  vintage graphic tee under $30
+      out: dict with keys: description, size, max_price
+[2] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: 10 items: Y2K Baby Tee — Butterfly Print, Graphic Tee — 2003 Tour Bootleg Style, Vintage Band Tee — Faded Grey … +7 more
+      →    10 match(es)
+[3] select_item
+      out: Y2K Baby Tee — Butterfly Print ($18.0, depop)
+[4] suggest_outfit
+      in:  Y2K Baby Tee — Butterfly Print ($18.0, depop)
+      out: Outfit 1: Lean into the Y2K aesthetic by pairing the baby tee with the baggy straight-leg jeans, dark wash. Ci…
+      →    10 wardrobe item(s)
+[5] create_fit_card
+      in:  Y2K Baby Tee — Butterfly Print ($18.0, depop)
+      out: Found this sweet little butterfly tee on depop for just 18 bucks and I'm obsessed. I've been styling it with b…</textarea>
+  <label class="f">Empty search</label>
+  <textarea name="Loop Trace — empty search" rows="9">$ python app.py ask 'designer ballgown size XXS under $5' --trace
+[1] parse_query
+      in:  designer ballgown size XXS under $5
+      out: dict with keys: description, size, max_price
+[2] search_listings (via MCP)
+      in:  dict with keys: description, size, max_price
+      out: [] (empty)
+      →    0 match(es)
+[3] branch
+      →    search returned []: stopping before suggest_outfit</textarea>
+  <label class="f" for="mcp">On the MCP move</label>
+  <textarea class="prose" id="mcp" name="On the MCP move" rows="6">`search_listings` is registered as a tool in `mcp_server.py` with `@mcp.tool()`, wrapping the real implementation imported under an alias so it doesn't call itself. In `agent.py`, `run_agent` now calls it through `_search`, which uses `mcp_client.call_tool("search_listings", {...})`. Nothing behaved differently afterwards: called directly over MCP, "graphic tee" under $30 returns the same 6 listings as before, still as a list of dicts with float prices. One weak spot: if the MCP call fails, `_search` quietly falls back to the direct function, and the trace still says "via MCP". The run works, but the label can be wrong.</textarea>
+</section>
+
+</form>
+</main>
+
+<div class="bar">
+  <button type="submit" form="writeup">Send to README</button>
+  <button type="button" class="ghost" onclick="copyAll(this)">Copy all as markdown</button>
+  <span role="status" aria-live="polite" id="st"></span>
+</div>
+
+<script>
+function collect() {
+  const out = [];
+  for (const q of document.querySelectorAll('[data-lavish-question]')) {
+    const parts = [...q.querySelectorAll('textarea')].map(t => `**${t.name}**\n\n${t.value.trim() || '(empty)'}`);
+    out.push(`## ${q.dataset.lavishQuestion}\n\n${parts.join('\n\n')}`);
+  }
+  return out.join('\n\n---\n\n');
+}
+function send() {
+  const text = collect();
+  const st = document.getElementById('st');
+  if (window.lavish && window.lavish.queuePrompt) {
+    window.lavish.queuePrompt('Write these sections into README.md word for word (code-like fields go in ``` blocks; leave How I Used AI blank where marked (empty)):\n\n' + text,
+      { tag: 'writeup', text: 'README write-up', queueKey: 'writeup', element: document.getElementById('writeup') });
+    st.textContent = 'Queued — press Send to Agent in the Lavish toolbar.';
+  } else {
+    copyAll(null);
+  }
+}
+async function copyAll() {
+  const st = document.getElementById('st');
+  try { await navigator.clipboard.writeText(collect()); st.textContent = 'Copied. Paste it into the chat.'; }
+  catch { st.textContent = 'Clipboard blocked — select the text in each box instead.'; }
+}
+</script>
+</body>
+</html>

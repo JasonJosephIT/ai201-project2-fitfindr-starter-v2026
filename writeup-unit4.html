@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-lavish-annotate="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitFindr — corrections + Unit 4 drafts</title>
+<style>
+  :root { --bg:#faf9f6; --card:#fff; --ink:#1f2328; --muted:#646b73; --line:#e3e0d8;
+          --met:#1f7a4d; --miss:#b42318; --draft:#9a6700; --accent:#3b5bdb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#16181b; --card:#1f2226; --ink:#e6e6e6; --muted:#9aa0a6; --line:#33373c;
+            --met:#4cc38a; --miss:#ff7b72; --draft:#e3b341; --accent:#8da2fb; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.55 system-ui, sans-serif; }
+  main { max-width:960px; margin:0 auto; padding:28px 20px 90px; }
+  h1 { font-size:24px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .scores { display:grid; grid-template-columns:repeat(5, 1fr); gap:10px; margin:0 0 26px; }
+  .score { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .score b { display:block; font-size:13px; }
+  .score small { color:var(--muted); font-size:12px; display:block; margin-bottom:6px; }
+  .row { display:flex; justify-content:space-between; font-size:13px; }
+  .met { color:var(--met); font-weight:700; } .miss { color:var(--miss); font-weight:700; }
+  @media (max-width:720px) { .scores { grid-template-columns:1fr 1fr; } }
+  section { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin:0 0 18px; }
+  section h2 { font-size:18px; margin:0 0 4px; }
+  .ask { color:var(--muted); font-size:13.5px; margin:0 0 12px; }
+  label.f { display:block; font-weight:600; font-size:13.5px; margin:12px 0 4px; }
+  textarea { width:100%; font:13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color:var(--ink);
+             background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:10px; resize:vertical; }
+  textarea.prose { font-family:system-ui, sans-serif; font-size:14.5px; }
+  textarea:focus { outline:2px solid var(--accent); outline-offset:1px; }
+  .note { font-size:13px; color:var(--muted); border-left:3px solid var(--draft); padding:4px 10px; margin:10px 0 0; }
+  .yours { font-size:13px; color:var(--muted); background:var(--bg); border:1px dashed var(--line); border-radius:6px; padding:8px 10px; margin:0 0 6px; }
+  .divider { margin:30px 0 14px; font-weight:700; color:var(--muted); letter-spacing:.06em; font-size:12px; text-transform:uppercase; }
+  .bar { position:sticky; bottom:0; background:var(--bg); border-top:1px solid var(--line); padding:12px 20px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  button { font:600 14px system-ui, sans-serif; padding:8px 16px; border-radius:6px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--accent); }
+  [role=status] { font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1>Corrections + Unit 4 drafts</h1>
+<p class="sub">Your two "How I Used AI" moments, rewritten to the README's bar, plus every remaining Unit 4 section. Edit anything, then press <b>Send to README</b>.</p>
+
+<div class="scores" aria-label="Scores before and after the fix">
+  <div class="score"><b>1. Completes</b><small>target 4/5</small><div class="row"><span>before</span><span class="met">5/5</span></div><div class="row"><span>after</span><span class="met">5/5</span></div></div>
+  <div class="score"><b>2. Empty stops</b><small>target 5/5</small><div class="row"><span>before</span><span class="met">5/5</span></div><div class="row"><span>after</span><span class="met">5/5</span></div></div>
+  <div class="score"><b>3. Same item</b><small>target 5/5</small><div class="row"><span>before</span><span class="met">5/5</span></div><div class="row"><span>after</span><span class="met">5/5</span></div></div>
+  <div class="score"><b>4. Price + platform</b><small>target 4/5</small><div class="row"><span>before</span><span class="miss">3/5</span></div><div class="row"><span>after</span><span class="met">5/5</span></div></div>
+  <div class="score"><b>5. Price ceiling</b><small>target 5/5</small><div class="row"><span>before</span><span class="met">5/5</span></div><div class="row"><span>after</span><span class="met">5/5</span></div></div>
+</div>
+
+<form id="writeup" onsubmit="event.preventDefault(); send();">
+
+<div class="divider">Unit 3 — corrected</div>
+
+<section data-lavish-question="How I Used AI">
+  <h2>How I Used AI — corrected</h2>
+  <p class="ask">Same two moments you picked, with what actually came back and what you actually changed.</p>
+  <p class="yours">You wrote — Moment 1: "I had Claude expand the stop word list." / "A comprehensive list of about 37 stopwords" / "Add even more words"</p>
+  <label class="f">Moment 1 — what I asked for</label>
+  <textarea class="prose" name="Moment 1 — asked" rows="2">I asked Claude to finish the stopword list in `tools.py` (`_STOPWORDS`), which only had 8 words ("a", "the", "for"…), so filler in a query stops counting as a keyword match.</textarea>
+  <label class="f">Moment 1 — what came back</label>
+  <textarea class="prose" name="Moment 1 — came back" rows="3">About 80 words in three groups: grammar words ("or", "but", "to"), request filler ("looking", "something", "cute") and price/size words the parser can leave behind ("under", "bucks", "size"). It checked old against new: every eval query returned the same listings, but "boots size 9" went from 6 matches to 1, because "size" had been matching any listing that mentions a size.</textarea>
+  <label class="f">Moment 1 — what I changed</label>
+  <textarea class="prose" name="Moment 1 — changed" rows="2">I had it add 15 more everyday words ("were", "have", "would", "what", "which"…), bringing the list to 100, so question-style queries like "what jacket would go with jeans" only match on "jacket" and "jeans".</textarea>
+
+  <p class="yours" style="margin-top:18px">You wrote — Moment 2: "Changed the create fit card to determisitcially populate the dollar amount of the fits" / "a 5/5 passing criterion now" / "nothing"</p>
+  <label class="f">Moment 2 — what I asked for</label>
+  <textarea class="prose" name="Moment 2 — asked" rows="2">After criterion 4 missed (two fit cards said "twenty-four bucks" instead of "$24"), I first asked Claude to loosen the criterion to accept "bucks" or "dollars". Then I asked whether the price in the card was produced deterministically or by the model.</textarea>
+  <label class="f">Moment 2 — what came back</label>
+  <textarea class="prose" name="Moment 2 — came back" rows="3">It wrote the revision but warned that loosening a criterion right after missing it is what the rubric calls lowering a target. On the second question: the code builds "$24" from the listing, but the model writes the caption freely and nothing checks it. It proposed a check in `create_fit_card`: if the exact price isn't in the caption, retry once, then append "($24 on depop.)".</textarea>
+  <label class="f">Moment 2 — what I changed</label>
+  <textarea class="prose" name="Moment 2 — changed" rows="2">I took the code fix and dropped the criterion revision, so criterion 4 stays as written in unit 3 and the before-run still counts as a miss.</textarea>
+</section>
+
+<div class="divider">Unit 4 — the test</div>
+
+<section data-lavish-question="Run Log — Before">
+  <h2>Run Log — Before</h2>
+  <p class="ask">From <code>results/run_2026-10-26_0031_before.md</code>. Scored against criteria.md as written.</p>
+  <textarea name="Run Log — Before table" rows="8">| Criterion | Target | Try 1 | Try 2 | Try 3 | Try 4 | Try 5 | Verdict |
+|---|---|---|---|---|---|---|---|
+| 1. A matching query completes all three tools | 4 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 2. An impossible query stops before the second tool | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 3. The item search found is the item every later tool received | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 4. The fit card is a short post that names the price and platform | 4 of 5 | FAIL | FAIL | PASS | PASS | PASS | MISSED (3/5) |
+| 5. Search never returns anything above the price ceiling | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |</textarea>
+  <label class="f">Real output from one try</label>
+  <textarea name="Run Log — Before real output" rows="6">Criterion 4, try 1 — `tools.py::create_fit_card`, from results/run_2026-10-26_0031_before.md
+Item: Graphic Tee — 2003 Tour Bootleg Style ($24.0, depop)
+
+scored this bootleg tour tee on depop for twenty-four bucks and I'm obsessed. figured out two ways to style it today, from heavy grunge with combat boots to a relaxed streetwear vibe in khakis. honestly might live in this shirt all fall.</textarea>
+</section>
+
+<section data-lavish-question="Verdicts and Diagnoses">
+  <h2>Verdicts and Diagnoses</h2>
+  <textarea name="Verdicts table" rows="8">| # | Criterion | Target | Verdict | How I decided |
+|---|---|---|---|---|
+| 1 | A matching query completes all three tools | 4 of 5 | MET (5/5) | Every try ended with `session["error"]` = None and a fit card set; the trace shows all three tools ran. |
+| 2 | An impossible query stops before the second tool | 5 of 5 | MET (5/5) | Every trace ends at step 3, "branch", with no suggest_outfit step, and the error names the description, size and price to change. |
+| 3 | The item search found is the item every later tool received | 5 of 5 | MET (5/5) | In every trace the first search result, `selected_item`, and the input to suggest_outfit and create_fit_card are the same listing. The report prints titles, not ids; all 40 titles are unique, so same title means same id. |
+| 4 | The fit card names the price and platform | 4 of 5 | MISSED (3/5) | Searched each card for "$24" and "depop" and counted sentences and words. Tries 1 and 2 wrote the price as "twenty-four bucks" / "twenty four bucks"; all five were 3 sentences or fewer and under 80 words. |
+| 5 | Search never returns anything above the price ceiling | 5 of 5 | MET (5/5) | For all five phrasings `parsed["max_price"]` equals the typed number, and re-running the same parse and search shows no result above it (highest: $27 of 30, $45 of 50, $32 of 35). |</textarea>
+  <label class="f">Diagnoses</label>
+  <textarea class="prose" name="Diagnoses" rows="6">Criterion 4 missed in the model's output, not in a tool, the loop or the session. `create_fit_card` builds the price exactly ("$24") from the listing and puts it in the prompt twice, but at temperature 0.9 the model is writing a casual social post, and people write "24 bucks". Nothing after `generate()` checked the caption, so the model's rewording went straight to the user. The tool did its job; it trusted the model to copy a fact it was free to rephrase. Both misses are the same problem: one item, the same mechanism.</textarea>
+</section>
+
+<section data-lavish-question="The Improvement">
+  <h2>The Improvement</h2>
+  <label class="f">What I changed</label>
+  <textarea class="prose" name="What I changed" rows="3">In `tools.py::create_fit_card`, after the model replies, the code checks that the exact price string (e.g. "$24") is in the caption. If it isn't, it calls the model once more; if the retry still drops it, it appends "($24 on depop.)" to the first caption. The price now comes from the listing, not from the model's wording.</textarea>
+  <label class="f">Which failure it was meant to fix</label>
+  <textarea class="prose" name="Which failure it was meant to fix" rows="2">Criterion 4: two of five cards gave the price as "twenty-four bucks", so the price wasn't stated in a form anyone could check.</textarea>
+  <label class="f">Run Log — After</label>
+  <textarea name="Run Log — After table" rows="8">| Criterion | Target | Try 1 | Try 2 | Try 3 | Try 4 | Try 5 | Verdict |
+|---|---|---|---|---|---|---|---|
+| 1. A matching query completes all three tools | 4 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 2. An impossible query stops before the second tool | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 3. The item search found is the item every later tool received | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 4. The fit card is a short post that names the price and platform | 4 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |
+| 5. Search never returns anything above the price ceiling | 5 of 5 | PASS | PASS | PASS | PASS | PASS | MET (5/5) |</textarea>
+  <label class="f">Did it help, and how do I know</label>
+  <textarea class="prose" name="Did it help" rows="4">Yes for criterion 4: 3/5 before, 5/5 after (results/run_2026-10-26_0041_after.md). All five cards said "$24" and "depop", were 3 sentences, and ran 52–65 words. None of them carry the appended "($24 on depop.)", so either the model wrote "$24" the first time or the retry fixed it. The run made 50 model calls against 41 before, which fits a few retries, but the log doesn't record retries, so I can't say how many. Nothing else changed: criteria 1, 2, 3 and 5 stayed at 5/5.</textarea>
+</section>
+
+<section data-lavish-question="What's Still Broken">
+  <h2>What's Still Broken</h2>
+  <p class="ask">Every criterion is met, so this is the honest list of weak spots the tests passed over.</p>
+  <textarea class="prose" name="What's Still Broken" rows="12">- **Criterion 5 passed partly on empty results.** "boots max $40" and "hoodie up to $25" found nothing: the only boots are $44 and the only hoodie is $26. An empty list can't break a ceiling, so 2 of the 5 tries tested the parser but not the filter. Next I'd swap them for phrasings that match something, e.g. "boots max $50".
+- **Search ranks weak matches first.** "black combat boots" put an Oversized Flannel Shirt first. There are no combat boots in the data, so every listing scored 1 on a single word ("black" or "boots"), and ties keep the file's order. The Suede Chelsea Boots tie with the flannel and lose on order. Criterion 3 still passed because it checks the hand-off, not whether the pick was good. A fix would weight title and category matches above description matches.
+- **Spelled-out prices aren't parsed.** "nothing over thirty dollars" sets no ceiling, and the search quietly ignores it. Known since unit 3; it would need a number-word step in `parse_query`.
+- **The trace can claim MCP when it didn't happen.** If the MCP call fails, `agent.py::_search` falls back to the direct function, and the step still says "search_listings (via MCP)".
+- **Retries are invisible.** The price retry in `create_fit_card` isn't logged, so I can't tell from a run how often the model dropped the price.
+
+I stopped at one measured change, which is what the milestone asks for.</textarea>
+</section>
+
+</form>
+</main>
+
+<div class="bar">
+  <button type="submit" form="writeup">Send to README</button>
+  <button type="button" class="ghost" onclick="copyAll()">Copy all as markdown</button>
+  <span role="status" aria-live="polite" id="st"></span>
+</div>
+
+<script>
+function collect() {
+  const out = [];
+  for (const q of document.querySelectorAll('[data-lavish-question]')) {
+    const parts = [...q.querySelectorAll('textarea')].map(t => `**${t.name}**\n\n${t.value.trim() || '(empty)'}`);
+    out.push(`## ${q.dataset.lavishQuestion}\n\n${parts.join('\n\n')}`);
+  }
+  return out.join('\n\n---\n\n');
+}
+function send() {
+  const text = collect();
+  const st = document.getElementById('st');
+  if (window.lavish && window.lavish.queuePrompt) {
+    window.lavish.queuePrompt('Write these sections into README.md word for word, replacing the How I Used AI moments and filling the Unit 4 sections (tables as markdown, real output in ``` blocks):\n\n' + text,
+      { tag: 'writeup-unit4', text: 'README corrections + Unit 4', queueKey: 'writeup-unit4', element: document.getElementById('writeup') });
+    st.textContent = 'Queued — press Send to Agent in the Lavish toolbar.';
+  } else {
+    copyAll();
+  }
+}
+async function copyAll() {
+  const st = document.getElementById('st');
+  try { await navigator.clipboard.writeText(collect()); st.textContent = 'Copied. Paste it into the chat.'; }
+  catch { st.textContent = 'Clipboard blocked — select the text in each box instead.'; }
+}
+</script>
+</body>
+</html>
