@@ -25,9 +25,11 @@ Given a query that matches at least one listing, the agent completes all three
 tool calls and returns a fit card — in at least 4 of 5 tries.
 
 **Why this target:**
-<!-- Why 4 of 5 and not 5 of 5? Something about your search, probably —
-     "my search is a plain keyword match and some phrasings will miss" is a
-     real answer. -->
+Search is deterministic, but the two steps after it call the model through a
+rate-limited free tier (15 requests a minute), so one run in five can hit a
+retry ceiling or come back empty and end with `session["error"]` set instead of
+a card. 5 of 5 would be grading the network; anything below 4 of 5 would mean
+my own loop is dropping runs.
 
 ---
 
@@ -37,66 +39,57 @@ Given a query that matches no listings, the agent stops before calling
 `suggest_outfit` and returns a message naming what to change — 5 of 5 tries.
 
 **Why this target:**
-<!-- Why is 5 of 5 reasonable here when criterion 1 isn't? What's different
-     about this path? -->
+This path never touches the model: `parse_query` is regex, `search_listings`
+is a keyword filter over a fixed 40-listing file, and the branch is a plain
+`if not results`. Same input, same output, every time — so a single miss is a
+bug in my branch, not noise, and anything under 5 of 5 should fail.
 
 ---
 
-## 3. Something about state
+## 3. The item search found is the item every later tool received
 
-<!-- YOU WRITE THIS ONE.
-
-     How would you know that the item your search found is the same item the
-     next tool received? Name something countable or observable.
-
-     This is the criterion people find hardest, because state failure doesn't
-     look like state failure — it looks like a tool problem. Something that
-     compares session["selected_item"] against what actually reached
-     suggest_outfit is the shape you're after. -->
-
-
+On a matching query, the `id` of `session["selected_item"]` equals the `id` of
+`session["search_results"][0]`, and the trace shows that same `id` as the input
+to both `suggest_outfit` and `create_fit_card` — in 5 of 5 tries.
 
 **Why this target:**
-
-
+Handing the item from one step to the next is ordinary Python, with no model
+and no randomness involved — the only way it breaks is if my code overwrites or
+rebuilds the dict between steps (for example, the MCP path returning a
+re-serialized copy). That kind of bug is deterministic, so it would show up
+every time; 5 of 5 is the only target that catches it instead of excusing it.
 
 ---
 
-## 4. Something about the fit card
+## 4. The fit card is a short post that names the price and platform
 
-<!-- YOU WRITE THIS ONE.
-
-     The fit card calls a model, so the same input can produce different words
-     each time. That's not a bug — it's the nature of the tool. So what would
-     make it acceptable?
-
-     Think about what you'd actually be unhappy to see. A caption that never
-     mentions the price? Two different items producing the same opening
-     sentence? A card longer than a caption anyone would post? Any of those can
-     be turned into a number. -->
-
-
+For a matching query, the fit card is 2–4 sentences, under 80 words, and
+contains both the item's price (e.g. `$24`) and its platform name (`depop`,
+`poshmark` or `thredUp`, case-insensitive) — in at least 4 of 5 tries.
 
 **Why this target:**
-
-
+The card is written by a small model at temperature 0.9, so the wording is
+supposed to vary and occasionally it will drop a detail or run long even when
+the prompt asks for both. Price and platform are the two facts a buyer actually
+needs and they're checkable with a string match, so they're what I score. 4 of
+5 allows one model slip; 3 of 5 would mean my prompt isn't doing its job.
 
 ---
 
-## 5. Your choice
+## 5. Search never returns anything above the price ceiling
 
-<!-- YOU WRITE THIS ONE TOO.
-
-     Pick something you actually care about getting right. Speed, the empty
-     wardrobe path, what happens when the model can't be reached, whether the
-     search respects a price ceiling — anything, as long as it names a number
-     or an observable outcome. -->
-
-
+For every query that includes a price ceiling (e.g. "under $30"), every listing
+in `session["search_results"]` has `price <= max_price`, and
+`session["parsed"]["max_price"]` equals the number the user typed — across 5
+different queries, 5 of 5.
 
 **Why this target:**
-
-
+A thrifter who says "under $30" and gets a $45 jacket stops trusting the app,
+so this matters more than any wording. Both the regex that pulls the price out
+and the filter in `search_listings` are deterministic, so there's no excuse
+for a miss. The 5 queries vary the phrasing ("under $30", "$30", "max $30") so
+the target tests the parser, not just the filter — phrasings like "nothing over
+thirty dollars" are a known gap and are deliberately left out.
 
 ---
 
