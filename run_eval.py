@@ -37,7 +37,13 @@ import config
 import scenarios as scenario_module
 
 
-def run_once(scenario, use_trace=True):
+def query_for(scenario, attempt):
+    """A scenario's query may be a list: try N uses the Nth entry (criterion 5)."""
+    query = scenario["query"]
+    return query if isinstance(query, str) else query[(attempt - 1) % len(query)]
+
+
+def run_once(scenario, attempt=1, use_trace=True):
     """One scenario, one try. Returns everything worth recording."""
     from agent import run_agent
     from utils.data_loader import get_example_wardrobe, get_empty_wardrobe
@@ -52,7 +58,7 @@ def run_once(scenario, use_trace=True):
 
     record = {"error": None, "session": None, "trace": "", "crashed": None}
     try:
-        record["session"] = run_agent(scenario["query"], wardrobe)
+        record["session"] = run_agent(query_for(scenario, attempt), wardrobe)
     except Exception as exc:  # noqa: BLE001 — a crash is a result worth logging
         record["crashed"] = f"{type(exc).__name__}: {exc}"
         record["traceback"] = traceback.format_exc()
@@ -95,7 +101,7 @@ def main():
 
         tries = []
         for attempt in range(1, args.tries + 1):
-            record = run_once(scenario)
+            record = run_once(scenario, attempt)
             tries.append(record)
 
             if record["crashed"]:
@@ -177,7 +183,7 @@ def write_report(rows, args):
                   f"- Wardrobe: {scenario['wardrobe']}", ""]
 
         for i, record in enumerate(row["tries"], 1):
-            lines.append(f"**Try {i}**")
+            lines.append(f"**Try {i}** — `{query_for(scenario, i)}`")
             lines.append("")
 
             if record["crashed"]:
