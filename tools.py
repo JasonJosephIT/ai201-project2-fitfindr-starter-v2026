@@ -28,7 +28,21 @@ from utils.data_loader import load_listings
 
 # ── Tool 1: search_listings ───────────────────────────────────────────────────
 _STOPWORDS = {
-    "a", "an", "and", "the", "for", "with", "in", "of"
+    # grammar words
+    "a", "an", "and", "the", "for", "with", "in", "of", "or", "but", "on",
+    "at", "to", "from", "by", "as", "is", "it", "its", "it's", "be", "are",
+    "was", "that", "this", "these", "those", "some", "any", "very", "so",
+    "can", "no", "not", "just", "too", "also", "were", "have", "has", "had",
+    "do", "does", "will", "would", "could", "should", "if", "what", "which",
+    "there", "into",
+    # how people phrase a request
+    "i", "i'm", "im", "me", "my", "we", "you", "your", "want", "wanna", "need",
+    "looking", "look", "find", "show", "get", "buy", "please", "something",
+    "anything", "thing", "item", "items", "piece", "one", "kind", "sort",
+    "like", "good", "nice", "cute", "really",
+    # price and size words parse_query can leave behind ("under 30", "size 9")
+    "under", "below", "less", "than", "max", "up", "over", "around",
+    "about", "price", "dollars", "dollar", "bucks", "cheap", "size", "sized",
 }
 
 def _keywords(text: str) -> set[str]:
